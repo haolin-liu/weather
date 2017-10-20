@@ -54,6 +54,13 @@ class Weather extends Component{
       .then((response)=>response.json())
       .then((json)=>{
         if (!json.data.error) {
+            for (var i = this.state.single.length - 1; i >= 0; i--) {
+            if (this.state.single[i].name == this.state.connent) {
+                this.setState({
+                  repeat:true,
+                })
+              }
+            }
           if (!this.state.repeat) {
               this.setState({
                 single:this.state.single.concat({
@@ -77,13 +84,6 @@ class Weather extends Component{
    }
 
   render() {
-  for (var i = this.state.single.length - 1; i >= 0; i--) {
-    if (this.state.single[i].name == this.state.connent) {
-      this.setState({
-        repeat:true,
-      })
-    }
-  }
     const slids = this.state.city.length == 0 ? <Text>人生如梦</Text> : this.state.city.map((cityElem, cityIndex) => {
       const weather = cityElem.source.data.request.map((weatherElem, weatherIndex) => {
           return (
