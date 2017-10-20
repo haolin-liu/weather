@@ -49,6 +49,7 @@ class Weather extends Component{
   }
 
    change () {
+      var flg = false;
       const ull = 'http://api.worldweatheronline.com/premium/v1/ski.ashx?key=655eff07d0b74329a9f31110171610&q=' + this.state.connent + '&format=json'
       fetch(ull)
       .then((response)=>response.json())
@@ -56,12 +57,10 @@ class Weather extends Component{
         if (!json.data.error) {
             for (var i = this.state.single.length - 1; i >= 0; i--) {
             if (this.state.single[i].name == this.state.connent) {
-                this.setState({
-                  repeat:true,
-                })
+                flg = true;
               }
             }
-          if (!this.state.repeat) {
+          if (!flg) {
               this.setState({
                 single:this.state.single.concat({
                   name:this.state.connent,
@@ -198,6 +197,7 @@ class Weather extends Component{
           <View style={{width:Util.size.width, height:Util.size.height}}>
            <Swiper 
               showsButtons={false}
+              loop={false}
               paginationStyle={{bottom:10, paddingTop:10, borderTopColor:"rgba(255,255,255,0.7)",borderTopWidth:Util.pixel}}
               dot={<View style={{backgroundColor: 'rgba(255,255,255,0.2)', width: 6, height: 6, borderRadius: 3, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
               activeDot={<View style={{backgroundColor: 'rgba(255,255,255,0.5)', width: 6, height: 6, borderRadius: 3, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}>
